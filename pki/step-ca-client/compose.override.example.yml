@@ -1,5 +1,7 @@
-# Client CA next to an existing compose project (e.g. the server step-ca + nginx). No DOCKER_STEPCA_INIT_* variables:
-# the image's auto-init prints the generated provisioner password into `docker logs` (docs/client-ca.md).
+# Variant for your own compose project that already runs nginx on port 80: put this file next to its compose.yml,
+# keep nginx and step-ca-client on the same network and include nginx-client-crl.conf in the port 80 server block.
+# Without such a project use compose.example.yml. No DOCKER_STEPCA_INIT_* variables: the image's auto-init prints the
+# generated provisioner password into `docker logs` (docs/client-ca.md).
 services:
   step-ca-client:
     image: smallstep/step-ca:0.30.2
