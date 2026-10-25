@@ -44,6 +44,8 @@ Client-App als „approved client app“ eintragen, optional eine Gerätegruppe 
 Entra-Kerberos-Serverobjekt in der AD-Domäne [Q1]. In Citrix: Delivery Group auf `MachineLogOnType HybridAzureAd`,
 dann den Workspace-Schalter `AzureAdSsoEnabled` [Q1][Q4].
 
+Übersicht: [architecture-overview-daas.svg](../img/architecture-overview-daas.svg) (Plan, nicht im Lab geprüft).
+
 **Vorteile.** Kein NetScaler, kein StoreFront, keine eigene Client-App: „Citrix DaaS uses a Citrix managed Azure
 client to handle the SSO“ [Q3]. Die VDAs behalten AD (Gruppenrichtlinien, Dateifreigaben). Microsoft führt hybrid
 joined und nicht-persistent mit Managed-Anmeldung als „Limited“ und nennt Citrix Cloud ausdrücklich als

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <title>Citrix DaaS Entra SSO (FAS-less) - variant A overview, hybrid launch (plan)</title>
+  <defs>
+    <marker id="k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0b6cbd"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d92d20"/></marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+    <style>
+      .ti { font-size: 26px; font-weight: 700; fill: #111827; }
+      .st { font-size: 17px; font-weight: 600; fill: #4b5563; }
+      .zt { font-size: 15px; font-weight: 600; }
+      .box { fill: #ffffff; stroke: #c3ccd5; stroke-width: 1.4; }
+      .h { font-size: 17px; font-weight: 600; fill: #111827; }
+      .t { font-size: 13.5px; fill: #4b5563; }
+      .https { stroke: #1f2933; stroke-width: 2; fill: none; marker-end: url(#k); }
+      .tok { stroke: #0b6cbd; stroke-width: 2; fill: none; stroke-dasharray: 7 5; marker-end: url(#b); }
+      .tok2 { stroke: #0b6cbd; stroke-width: 2; fill: none; stroke-dasharray: 7 5; marker-start: url(#b); marker-end: url(#b); }
+      .hdx { stroke: #d92d20; stroke-width: 2; fill: none; stroke-dasharray: 7 5; marker-end: url(#r); }
+      .ctl { stroke: #6b7280; stroke-width: 1.6; fill: none; stroke-dasharray: 3 4; marker-start: url(#g); marker-end: url(#g); }
+      .syn { stroke: #6b7280; stroke-width: 1.6; fill: none; stroke-dasharray: 3 4; marker-end: url(#g); }
+      .nk { fill: #1f2933; } .nb { fill: #0b6cbd; } .nr { fill: #d92d20; } .ng { fill: #6b7280; }
+      .nt { font-size: 13px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .lg { font-size: 13.5px; fill: #1f2933; }
+      .sx { font-size: 12.5px; fill: #374151; }
+      .card { fill: #ffffff; stroke: #d5dbe1; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1200" height="720" fill="#ffffff"/>
+
+  <text class="ti" x="24" y="40">Citrix DaaS Entra SSO (FAS-less) - variant A</text>
+  <text class="st" x="24" y="66">Workspace + Gateway Service, hybrid joined VDAs - no NetScaler, StoreFront or FAS (plan, not lab-verified)</text>
+
+  <!-- Entra -->
+  <rect x="350" y="84" width="830" height="104" rx="10" fill="#eaf3fc" stroke="#0b6cbd" stroke-width="1.4"/>
+  <text class="zt" x="366" y="106" fill="#0b4f8a">Microsoft Entra ID</text>
+  <rect class="box" x="366" y="116" width="262" height="58" rx="6"/>
+  <text class="h" x="382" y="140">Citrix Cloud sign-in</text>
+  <text class="t" x="382" y="161">Workspace identity provider</text>
+  <rect class="box" x="640" y="116" width="262" height="58" rx="6"/>
+  <text class="h" x="656" y="140">Citrix-Workspace</text>
+  <text class="t" x="656" y="161">client app, Citrix-managed</text>
+  <rect class="box" x="914" y="116" width="250" height="58" rx="6"/>
+  <text class="h" x="930" y="140">Citrix-Workspace-Resource</text>
+  <text class="t" x="930" y="161">RDS on, approved client, CA</text>
+
+  <!-- zones -->
+  <rect x="20" y="232" width="270" height="250" rx="10" fill="#f3f4f6"/>
+  <text class="zt" x="36" y="256" fill="#374151">Client</text>
+  <rect x="310" y="232" width="330" height="250" rx="10" fill="#fdf3e4"/>
+  <text class="zt" x="326" y="256" fill="#b45309">Citrix Cloud</text>
+  <rect x="660" y="232" width="520" height="250" rx="10" fill="#e9f7ec"/>
+  <text class="zt" x="676" y="256" fill="#15803d">Resource location (Azure)</text>
+
+  <!-- client -->
+  <rect class="box" x="36" y="272" width="238" height="64" rx="6"/>
+  <text class="h" x="52" y="298">Browser</text>
+  <text class="t" x="52" y="320">HTML5 / Citrix Web Extension</text>
+  <rect class="box" x="36" y="396" width="238" height="64" rx="6"/>
+  <text class="h" x="52" y="422">Workspace app</text>
+  <text class="t" x="52" y="444">hybrid launch</text>
+
+  <!-- Citrix Cloud -->
+  <rect class="box" x="326" y="264" width="298" height="52" rx="6"/>
+  <text class="h" x="342" y="285">Citrix Workspace</text>
+  <text class="t" x="342" y="305">store, Entra SSO on (tenant-wide)</text>
+  <rect class="box" x="326" y="340" width="298" height="52" rx="6"/>
+  <text class="h" x="342" y="361">DaaS (Broker)</text>
+  <text class="t" x="342" y="381">delivery group: HybridAzureAd</text>
+  <rect class="box" x="326" y="416" width="298" height="52" rx="6"/>
+  <text class="h" x="342" y="437">Gateway Service</text>
+  <text class="t" x="342" y="457">HDX proxy, TLS 443</text>
+
+  <!-- resource location -->
+  <rect class="box" x="676" y="264" width="240" height="52" rx="6"/>
+  <text class="h" x="692" y="285">Entra Connect Sync</text>
+  <text class="t" x="692" y="305">or Cloud Sync: users + VDA devices</text>
+  <rect class="box" x="676" y="340" width="240" height="52" rx="6"/>
+  <text class="h" x="692" y="361">Cloud Connector</text>
+  <text class="t" x="692" y="381">VDA registration, AD lookup</text>
+  <rect class="box" x="676" y="416" width="240" height="52" rx="6"/>
+  <text class="h" x="692" y="437">AD DS</text>
+  <text class="t" x="692" y="457">Entra Kerberos server object</text>
+
+  <rect class="box" x="936" y="318" width="228" height="96" rx="6"/>
+  <text class="h" x="952" y="344">VDA (Windows)</text>
+  <text class="t" x="952" y="364">hybrid Entra joined</text>
+  <text class="t" x="952" y="383">Entra SSO (CloudAP)</text>
+  <text class="t" x="952" y="402">VDA 2507+, MCS catalog</text>
+
+  <!-- control plane and sync (no step number) -->
+  <path class="ctl" d="M626,366 L674,366"/>
+  <path class="ctl" d="M918,366 L934,366"/>
+  <path class="ctl" d="M918,442 L990,442 L990,416"/>
+  <path class="syn" d="M908,262 L908,178"/>
+
+  <!-- 1 browser -> workspace -->
+  <path class="https" d="M274,290 L324,290"/>
+  <circle class="nk" cx="299" cy="275" r="11"/><text class="nt" x="299" y="280">1</text>
+  <!-- 2 workspace <-> sign-in app -->
+  <path class="tok2" d="M480,264 L480,176"/>
+  <circle class="nb" cx="497" cy="230" r="11"/><text class="nt" x="497" y="235">2</text>
+  <!-- 3 workspace -> DaaS -->
+  <path class="https" d="M560,316 L560,338"/>
+  <circle class="nk" cx="580" cy="327" r="11"/><text class="nt" x="580" y="332">3</text>
+  <!-- 4 browser <-> Citrix-Workspace client app -> resource token -->
+  <path class="tok2" d="M120,270 L120,206 L770,206 L770,176"/>
+  <circle class="nb" cx="700" cy="206" r="11"/><text class="nt" x="700" y="211">4</text>
+  <!-- 5 browser -> workspace app (token handoff) -->
+  <path class="tok" d="M120,336 L120,394"/>
+  <circle class="nb" cx="140" cy="365" r="11"/><text class="nt" x="140" y="370">5</text>
+  <!-- 6 workspace app -> Gateway Service -> VDA (HDX) -->
+  <path class="hdx" d="M274,442 L324,442"/>
+  <path class="hdx" d="M475,468 L475,500 L1050,500 L1050,416"/>
+  <circle class="nr" cx="760" cy="500" r="11"/><text class="nt" x="760" y="505">6</text>
+  <!-- 7 VDA <-> resource app -->
+  <path class="tok2" d="M1100,318 L1100,176"/>
+  <circle class="nb" cx="1117" cy="250" r="11"/><text class="nt" x="1117" y="255">7</text>
+
+  <!-- legend -->
+  <rect x="20" y="522" width="1160" height="40" rx="8" fill="#ffffff" stroke="#d5dbe1"/>
+  <path class="https" d="M40,542 L100,542"/><text class="lg" x="112" y="547">HTTPS (browser)</text>
+  <path class="hdx" d="M270,542 L330,542"/><text class="lg" x="342" y="547">ICA / HDX through the Gateway Service</text>
+  <path class="tok" d="M600,542 L660,542"/><text class="lg" x="672" y="547">Entra token flow</text>
+  <path class="syn" d="M840,542 L900,542"/><text class="lg" x="912" y="547">control plane / directory sync</text>
+
+  <!-- steps -->
+  <g>
+    <rect class="card" x="20" y="574" width="284" height="64" rx="6"/>
+    <circle class="nk" cx="40" cy="594" r="11"/><text class="nt" x="40" y="599">1</text>
+    <text class="sx" x="58" y="598">Browser opens the Workspace URL</text>
+    <text class="sx" x="58" y="616">(HTTPS 443, &lt;customer&gt;.cloud.com)</text>
+
+    <rect class="card" x="312" y="574" width="284" height="64" rx="6"/>
+    <circle class="nb" cx="332" cy="594" r="11"/><text class="nt" x="332" y="599">2</text>
+    <text class="sx" x="350" y="598">Workspace signs the user in with Entra</text>
+    <text class="sx" x="350" y="616">(identity provider = Entra ID)</text>
+
+    <rect class="card" x="604" y="574" width="284" height="64" rx="6"/>
+    <circle class="nk" cx="624" cy="594" r="11"/><text class="nt" x="624" y="599">3</text>
+    <text class="sx" x="642" y="598">Launch: delivery group HybridAzureAd,</text>
+    <text class="sx" x="642" y="616">AzureAdSsoEnabled for the whole tenant</text>
+
+    <rect class="card" x="896" y="574" width="284" height="64" rx="6"/>
+    <circle class="nb" cx="916" cy="594" r="11"/><text class="nt" x="916" y="599">4</text>
+    <text class="sx" x="934" y="598">Browser gets a Workspace Resource token</text>
+    <text class="sx" x="934" y="616">via the Citrix-managed client app</text>
+
+    <rect class="card" x="20" y="646" width="284" height="64" rx="6"/>
+    <circle class="nb" cx="40" cy="666" r="11"/><text class="nt" x="40" y="671">5</text>
+    <text class="sx" x="58" y="670">Web Extension hands the token</text>
+    <text class="sx" x="58" y="688">to Workspace app</text>
+
+    <rect class="card" x="312" y="646" width="284" height="64" rx="6"/>
+    <circle class="nr" cx="332" cy="666" r="11"/><text class="nt" x="332" y="671">6</text>
+    <text class="sx" x="350" y="670">Workspace app connects to the VDA</text>
+    <text class="sx" x="350" y="688">through the Gateway Service (ICA/HDX)</text>
+
+    <rect class="card" x="604" y="646" width="284" height="64" rx="6"/>
+    <circle class="nb" cx="624" cy="666" r="11"/><text class="nt" x="624" y="671">7</text>
+    <text class="sx" x="642" y="670">VDA (CloudAP) redeems the token with</text>
+    <text class="sx" x="642" y="688">Entra: user signed in, no password</text>
+
+    <rect class="card" x="896" y="646" width="284" height="64" rx="6"/>
+    <circle class="ng" cx="916" cy="666" r="11"/><text class="nt" x="916" y="671">P</text>
+    <text class="sx" x="934" y="670">Prerequisite: VDA hybrid joined (sync),</text>
+    <text class="sx" x="934" y="688">Entra Kerberos server object in AD</text>
+  </g>
+</svg>

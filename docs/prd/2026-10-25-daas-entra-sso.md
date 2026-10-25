@@ -42,6 +42,10 @@ Benutzer melden sich einmal mit Entra (Passkey, Windows Hello) an und landen ohn
 | B eigener NetScaler + StoreFront | Repo nah, plus Bypass für `RedeemStoreTicket` [Q3] | nur falls mTLS Pflicht wird |
 | D FAS | AD-only behalten | verworfen als Ziel, nutzbar als Übergang [Q5] |
 
+![Variante A: Client, Citrix Cloud (Workspace, DaaS, Gateway Service), Resource Location in Azure, Entra ID mit den 7 Anmeldeschritten](../img/architecture-overview-daas.svg)
+
+*Eigene Zeichnung im Stil von `architecture-overview.svg`; Plan, nicht im Lab geprüft. Schritte nach [Q1][Q3][Q6].*
+
 Das PRD beschreibt A. C unterscheidet sich nur in Katalog und `MachineLogOnType` und ist im Umfang mit abgedeckt
 (Abschnitt 5, Punkt 4).
 
