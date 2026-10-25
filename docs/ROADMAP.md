@@ -57,6 +57,12 @@ versions it was tested with.
 - Later: self-service enrollment (OIDC provisioner bound to the signed-in Entra user), re-enrollment inside an HDX
   session, enforced PIN change after the enrollment.
 
+## Idea: Citrix DaaS (Workspace + Gateway Service)
+Research and PRD (German, issue #3): [research](research/2026-10-25-daas-entra-sso.md),
+[PRD](prd/2026-10-25-daas-entra-sso.md). Recommended path: Citrix-managed client app, hybrid joined VDAs,
+`MachineLogOnType HybridAzureAd`, tenant-wide Workspace switch `AzureAdSsoEnabled`; no NetScaler, StoreFront or
+`Set-BrokerSite`. Open: mTLS with Gateway Service, `AzureSSOn*` in DaaS.
+
 ## v1.3 (idea): more than one Entra SSO store per site - NetScaler response rewrite (unsupported workaround)
 Idea: the site-wide `AzureSSOn*` values travel Broker -> StoreFront (direct) and then StoreFront -> client **inside
 the ICA file**, through the Gateway (`.../Resources/LaunchIca/...`; the HTML5 page builds its msal request from the
