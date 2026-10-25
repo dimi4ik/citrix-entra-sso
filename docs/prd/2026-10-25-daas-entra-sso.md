@@ -129,7 +129,9 @@ Für die spätere Umsetzung, im Lab gegen DaaS geprüft:
 | `netscaler/13-client-crl.cli` | entfällt | mTLS nur bei B |
 | `pki/step-ca-client/ca.json.example` | bleibt (ungenutzt) | Client-CA nur für mTLS bei B |
 | `pki/step-ca-client/client-auth.tpl` | bleibt (ungenutzt) | wie oben |
+| `pki/step-ca-client/compose.example.yml` | bleibt (ungenutzt) | eigenständiges Compose-Projekt step-ca + nginx (#4); im Cloud-Weg keine Client-CA und keine CRL nötig |
 | `pki/step-ca-client/compose.override.example.yml` | bleibt (ungenutzt) | wie oben |
+| `pki/step-ca-client/nginx-client-crl-server.conf` | bleibt (ungenutzt) | nginx nur als CRL-Verteilpunkt für den eigenen NetScaler (#4); Gateway Service prüft keine Client-CRL |
 | `pki/step-ca-client/nginx-client-crl.conf` | bleibt (ungenutzt) | wie oben |
 | `config/example.json` | bleibt | on-prem-Layout unverändert; eine Änderung wäre laut `CLAUDE.md` ein Major-Bruch. DaaS bekommt eine eigene Beispieldatei (E4) |
 | `config/example-daas.json` | neu | `tenantId`, `resourceAppId`, `citrixClientAppId` (`85651ebe-…`), `customerId`, `deliveryGroups`, `machineLogOnType`, `targetDeviceGroups`, `conditionalAccess`, Name der Umgebungsvariable für das API-Client-Secret |
