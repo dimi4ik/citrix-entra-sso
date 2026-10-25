@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+The client CA no longer assumes an unpublished compose project: it can be set up on an empty Docker host with the
+files of this repository alone.
+
+### Added
+- `pki/step-ca-client/compose.example.yml`: standalone compose project `pki-client` with `step-ca-client` and `nginx`
+  (`nginx:1.30.6-alpine`, port 80 for the public CRL only) on their own network.
+- `pki/step-ca-client/nginx-client-crl-server.conf`: complete port 80 server that includes `nginx-client-crl.conf`.
+
+### Changed
+- `compose.override.example.yml` and `nginx-client-crl.conf`: comments name them as the variant for an own compose
+  project with nginx on port 80 instead of assuming one.
+- `docs/client-ca.md`: Docker host requirements, setup from an empty project folder (step 0), start of both
+  services, the variant in its own subsection, `insecureAddress` named as the alternative to nginx.
+- README: `pki/` description.
+
 ## v1.2.0 - 2026-10-25
 
 Client certificate authority for the optional mTLS Gateway (ROADMAP v1.2). Lab-verified: step-ca client CA,

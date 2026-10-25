@@ -119,7 +119,7 @@ Not covered: Citrix DaaS / Citrix Cloud (own Citrix documentation), Entra joined
 |---|---|
 | `scripts/` | PowerShell: export of the current config, idempotent setup per component, validation |
 | `netscaler/` | JSON object files for [netscaler-nitro](https://github.com/bensplittgerber/netscaler-nitro) (>= v1.2.0, v1.2.1 recommended): Entra OIDC nFactor, Gateway on 443 with token rewrite, optional mTLS |
-| `pki/` | optional mTLS: step-ca client CA templates (CA config, leaf template, compose, nginx CRL) - see [client CA](docs/client-ca.md) |
+| `pki/` | optional mTLS: step-ca client CA: standalone compose project (CA + nginx for the public CRL), CA config, leaf template - see [client CA](docs/client-ca.md) |
 | `config/` | `example.json` with placeholders; real values go into `*.local.json` (git-ignored) |
 | `docs/` | [end-to-end deployment](docs/deployment.md), [architecture](docs/architecture.md), troubleshooting signatures, client matrix, limitations, [ROADMAP](docs/ROADMAP.md) (v1.1: end-to-end deployment with netscaler-nitro and netscaler-vpx-deploy), [release steps](docs/release.md) |
 

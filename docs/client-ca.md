@@ -34,12 +34,25 @@ behalf). This page covers step-ca.
 ## 1. CA setup (Docker host, run by the administrator)
 
 Files: [`pki/step-ca-client/`](../pki/step-ca-client/) - `ca.json.example`, `client-auth.tpl`,
-`compose.override.example.yml`, `nginx-client-crl.conf`. Replace `example.org`, the name policy (`@example.org`)
-and the CRL URL first; the CDP in the template and `crl.idpURL` must be the same URL.
+`compose.example.yml`, `nginx-client-crl-server.conf`, `nginx-client-crl.conf`, `compose.override.example.yml`.
+`compose.example.yml` is a standalone project with the CA and the nginx for the public CRL on its own network; the
+override file is only the [variant](#variant-own-compose-project-with-nginx) for an existing nginx of your own.
+Replace `example.org`, the name policy (`@example.org`) and the CRL URL first; the CDP in the template and
+`crl.idpURL` must be the same URL.
 
 Do **not** use the image's `DOCKER_STEPCA_INIT_*` auto-init: it prints the generated provisioner password into
 `docker logs`. Without `ca.json` and without init variables the container refuses to start (safe failure).
 
+Docker host: Linux with Docker Engine and Compose v2 (`docker compose`), `jq` (step 4), port 80 free for the CRL, a
+LAN IP for the enrollment port 9444. The project folder below is `/srv/pki`.
+
+0. Project folder with the files from `pki/step-ca-client/` (from a clone of this repository), the compose file saved
+   as `compose.yml`; then replace `192.0.2.186` in `compose.yml` with the host's LAN IP:
+   ```bash
+   sudo install -d -m 755 /srv/pki
+   sudo cp pki/step-ca-client/{ca.json.example,client-auth.tpl,nginx-client-crl-server.conf,nginx-client-crl.conf} /srv/pki/
+   sudo cp pki/step-ca-client/compose.example.yml /srv/pki/compose.yml
+   ```
 1. Folders (uid 1000 = `step` in the image):
    ```bash
    cd /srv/pki
@@ -90,14 +103,24 @@ Do **not** use the image's `DOCKER_STEPCA_INIT_*` auto-init: it prints the gener
 6. Root key offline: copy `secrets/root_ca_key` + `root_password` to offline storage, then
    `sudo shred -u step-client/secrets/root_ca_key step-client/secrets/root_password`. Needed again only to re-issue
    the issuing CA.
-7. Start (compose block from `compose.override.example.yml`; enrollment port on the LAN IP only, no internet
-   forward):
+7. Start both services (enrollment port on the LAN IP only, no internet forward):
    ```bash
-   docker compose up -d step-ca-client && docker compose ps step-ca-client      # (healthy) after ~1 min
+   docker compose up -d && docker compose ps      # step-ca-client (healthy) after ~1 min, nginx running
    docker exec step-ca-client step ca health
    ```
 8. Negative test of the name policy: `docker exec -it step-ca-client step ca certificate someone@other.example /tmp/x.crt /tmp/x.key`
    must be refused (`email name ... not allowed`).
+
+### Variant: own compose project with nginx
+
+If you already run a compose project with nginx on port 80, use
+[`compose.override.example.yml`](../pki/step-ca-client/compose.override.example.yml) instead of `compose.yml`: put it
+next to your `compose.yml` as `compose.override.yml` (Compose loads it automatically unless the project is started
+with `-f`; then add `-f compose.override.yml`), put nginx and `step-ca-client` on the same network (the snippet
+resolves the container name over Docker's DNS `127.0.0.11`) and include
+[`nginx-client-crl.conf`](../pki/step-ca-client/nginx-client-crl.conf) in the port 80 `server` block. Copy
+`ca.json.example` and `client-auth.tpl` into that project folder; steps 1-6 and 8 stay the same with that folder
+instead of `/srv/pki`. Start with `docker compose up -d step-ca-client`.
 
 ## 2. CRL distribution point (public)
 
@@ -105,9 +128,13 @@ The CDP in every user certificate is fetched by the NetScaler (internal is enoug
 certificate themselves (Entra CBA, Okta Smart Card IdP) or Windows clients outside the LAN, from the **internet**.
 Publish it over plain HTTP on port 80 (CRLs are signed; HTTPS for a CDP causes chicken-and-egg problems).
 
-- nginx in front of the CA: [`nginx-client-crl.conf`](../pki/step-ca-client/nginx-client-crl.conf) -
+- nginx in front of the CA: service `nginx` from `compose.example.yml`, with
+  [`nginx-client-crl-server.conf`](../pki/step-ca-client/nginx-client-crl-server.conf) (port 80 server) and
+  [`nginx-client-crl.conf`](../pki/step-ca-client/nginx-client-crl.conf) -
   `location = /client/crl` -> `https://step-ca-client:9000/1.0/crl`, GET/HEAD only, everything else 404. The CA
   itself is never exposed.
+- Alternative: step-ca can serve the CRL over plain HTTP itself (`insecureAddress`), but only under `/crl` and
+  `/1.0/crl`; that changes the CDP of issued certificates and puts the CA process on the internet, hence nginx.
 - DNS: `pki.example.org` public A -> the WAN address, internal A -> the nginx host. Port forward TCP 80 -> nginx.
 - A CRL server outage does not break logons at once: the CRL is valid 72 h and the NetScaler keeps the last copy.
   `crlCheck Mandatory` rejects logons only after the cached CRL's Next Update has passed.
