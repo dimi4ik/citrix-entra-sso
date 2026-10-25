@@ -137,17 +137,17 @@ Für die spätere Umsetzung, im Lab gegen DaaS geprüft:
 | `scripts/Set-DaasEntraSso.ps1` (Name vorläufig) | neu | Delivery Groups `MachineLogOnType`, Workspace-Schalter `AzureAdSsoEnabled` als letzter Schritt, Rückweg-Ausgabe |
 | `netscaler/14-redeemstoreticket-bypass.json` | neu, nur bei B | Content Switching am Gateway vorbei für `/Citrix/<StoreWeb>/Tickets/RedeemStoreTicket` [Q3]; nicht im Umfang, solange E3 offen |
 
-## 10. Offene Entscheidungen
+## 10. Entscheidungen
 
-| # | Frage | Optionen | Empfehlung |
-|---|---|---|---|
-| E1 | Variante A oder C? | A hybrid joined / C Entra joined / beides | **A**, solange Apps AD brauchen oder Kataloge nicht-persistent sind; hängt an O6 (persistent?) |
-| E2 | Resource-App-Teil: neues Skript oder Modus in `New-EntraSsoClientApp.ps1`? | neues Skript / Parameter im alten Skript | **neues Skript**: der in v1.2 geprüfte on-prem-Lauf bleibt unberührt, keine Neuvalidierung |
-| E3 | Ist mTLS Pflicht? | nein, Conditional Access reicht / ja → Variante B / erst klären (O3) | **erst O3 klären**; bis dahin phishing-resistente MFA per Conditional Access auf die Resource-App |
-| E4 | Config: eigene Datei oder `example.json` erweitern? | `example-daas.json` / gemeinsames Layout mit `platform` | **eigene Datei**: kein Major-Bruch, Skripte bleiben getrennt lesbar |
-| E5 | DaaS im selben Repo oder eigenem? | selbes Repo (Fork) / eigenes Repo / Vorschlag an Upstream | **selbes Repo**, Entra-Teil und Doku werden geteilt; ob es an Upstream geht, entscheidet Dima |
+| # | Frage | Optionen | Empfehlung | Entschieden (Dima, 2026-10-25) |
+|---|---|---|---|---|
+| E1 | Variante A oder C? | A hybrid joined / C Entra joined / beides | **A**, solange Apps AD brauchen oder Kataloge nicht-persistent sind; hängt an O6 (persistent?) | **A**; Kataloge sind nicht-persistent (O6) |
+| E2 | Resource-App-Teil: neues Skript oder Modus in `New-EntraSsoClientApp.ps1`? | neues Skript / Parameter im alten Skript | **neues Skript**: der in v1.2 geprüfte on-prem-Lauf bleibt unberührt, keine Neuvalidierung | **neues Skript** |
+| E3 | Ist mTLS Pflicht? | nein, Conditional Access reicht / ja → Variante B / erst klären (O3) | **erst O3 klären**; bis dahin phishing-resistente MFA per Conditional Access auf die Resource-App | **erst O3 klären** ([#6](https://github.com/dimi4ik/citrix-entra-sso/issues/6)), bis dahin Conditional Access |
+| E4 | Config: eigene Datei oder `example.json` erweitern? | `example-daas.json` / gemeinsames Layout mit `platform` | **eigene Datei**: kein Major-Bruch, Skripte bleiben getrennt lesbar | **`config/example-daas.json`** |
+| E5 | DaaS im selben Repo oder eigenem? | selbes Repo (Fork) / eigenes Repo / Vorschlag an Upstream | **selbes Repo**, Entra-Teil und Doku werden geteilt; ob es an Upstream geht, entscheidet Dima | **in diesem Fork** |
 
-Offene Fragen O1 bis O9 aus der Recherche bleiben bestehen; O1 (`Get-BrokerSite` im eigenen Mandanten) und O2
+O6 ist beantwortet (nicht-persistent). Die übrigen offenen Fragen aus der Recherche bleiben bestehen; O1 (`Get-BrokerSite` im eigenen Mandanten) und O2
 (Store-Befehl) blockieren Punkt 5 und 6 des Umfangs und kommen vor der Umsetzung.
 
 ## 11. Bezug

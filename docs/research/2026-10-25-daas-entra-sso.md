@@ -182,7 +182,7 @@ Als Nächstes zu klären (lesend, umkehrbar, vor jeder Frage an Citrix): ob `Get
 | O3 | Geht mTLS am Gateway Service? Geht Device Posture zusammen mit Entra-SSO? | keine Quelle gefunden |
 | O4 | Wie verhält sich die Anmeldehäufigkeit an der Resource-App beim ersten Start in DaaS? | nur on-prem getestet |
 | O5 | Katalogidentität AD → hybrid umstellbar oder Neubau? | nur Community [Q19], Citrix schweigt [Q6] |
-| O6 | Sind Dimas Kataloge persistent oder nicht-persistent? | entscheidet zwischen A und C |
+| O6 | Sind Dimas Kataloge persistent oder nicht-persistent? | **beantwortet** (Dima, 2026-10-25): nicht-persistent; damit Variante A (E1 im PRD) |
 | O7 | Cloud Sync Device Sync: Vorschau oder allgemein verfügbar? | Seite sagt es nicht [Q15] |
 | O8 | Welche Rolle braucht der Admin-Consent der Citrix-Apps? | nur Suchtreffer zu CTX665875, Seite nicht gelesen |
 | O9 | Microsoft-Support für Entra joined mit Citrix (C) | Citrix sagt ja [Q7], Microsoft-Tabelle nennt Citrix nicht [Q13] |
