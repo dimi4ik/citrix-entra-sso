@@ -115,7 +115,8 @@ LAN IP for the enrollment port 9444. The project folder below is `/srv/pki`.
 
 If you already run a compose project with nginx on port 80, use
 [`compose.override.example.yml`](../pki/step-ca-client/compose.override.example.yml) instead of `compose.yml`: put it
-next to your `compose.yml` as `compose.override.yml`, put nginx and `step-ca-client` on the same network (the snippet
+next to your `compose.yml` as `compose.override.yml` (Compose loads it automatically unless the project is started
+with `-f`; then add `-f compose.override.yml`), put nginx and `step-ca-client` on the same network (the snippet
 resolves the container name over Docker's DNS `127.0.0.11`) and include
 [`nginx-client-crl.conf`](../pki/step-ca-client/nginx-client-crl.conf) in the port 80 `server` block. Copy
 `ca.json.example` and `client-auth.tpl` into that project folder; steps 1-6 and 8 stay the same with that folder
