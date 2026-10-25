@@ -109,7 +109,7 @@ LAN IP for the enrollment port 9444. The project folder below is `/srv/pki`.
    docker exec step-ca-client step ca health
    ```
 8. Negative test of the name policy: `docker exec -it step-ca-client step ca certificate someone@other.example /tmp/x.crt /tmp/x.key`
-   must be refused (`email name ... not allowed`).
+   must be refused (`cn name "someone@other.example" not allowed`).
 
 ### Variant: own compose project with nginx
 

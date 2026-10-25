@@ -17,6 +17,10 @@ files of this repository alone.
   services, the variant in its own subsection, `insecureAddress` named as the alternative to nginx.
 - README: `pki/` description.
 
+### Fixed
+- `docs/client-ca.md` step 8: the expected refusal is `cn name ... not allowed` (step-ca 0.30.2, lab 2026-10-25),
+  not `email name ... not allowed`.
+
 ## v1.2.0 - 2026-10-25
 
 Client certificate authority for the optional mTLS Gateway (ROADMAP v1.2). Lab-verified: step-ca client CA,
